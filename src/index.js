@@ -106,11 +106,21 @@ function deriveNodeAddress(publicKey) {
   return deriveAddressFromBytes(accountPublicBytes);
 }
 
+function generateWallet(options) {
+  const seed = generateSeed(options);
+  const keypair = deriveKeypair(seed);
+  const accountID = deriveAddress(keypair.publicKey);
+  const publicKey = keypair.publicKey;
+  const privateKey = keypair.privateKey;
+  return {seed, accountID, publicKey, privateKey};
+}
+
 module.exports = {
   generateSeed,
   deriveKeypair,
   sign,
   verify,
   deriveAddress,
-  deriveNodeAddress
+  deriveNodeAddress,
+  generateWallet
 };
